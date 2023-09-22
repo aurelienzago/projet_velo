@@ -8,4 +8,34 @@ raw_data <- GET(base)
 
 df_base <- fromJSON(rawToChar(raw_data$content), flatten = TRUE)
 
+install.packages("RMySQL")
+
+library(RMySQL)
+
+con <- dbConnect(MySQL(),
+                 user = "sql11646681",
+                 password = "8f4mGIdyLh",
+                 host = "sql11.freesqldatabase.com",
+                 dbname = "sql11646681",
+                 port = 3306)
+
+summary(con)
+
+dbGetInfo(con)
+
+dbWriteTable(con, "iris", iris)
+
+dbListTables(con)
+
+result = dbGetQuery(con, "select * from iris")
+head(result,5)
+
+--------------------------------------------------------------------------------
+  
+install.packages("esquisse")
+
+library(esquisse)
+
+esquisser(data=df_base)
+
 View(df_base)
